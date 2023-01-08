@@ -1,8 +1,11 @@
-import { Button } from "antd"
+import { Button } from 'antd'
 
 const Login = () => {
-    <div>
-        <Button type="primary">Button</Button>
-    </div>
+    return (
+        <div>
+            <Button type="primary">Button</Button>
+        </div>
+    )
+    
 }
 export default Login

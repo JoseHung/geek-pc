@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom"
 
 // 导入页面组件
 import Login from './pages/Login'
-import Layout from "./pages/Layout"
+import Layout from './pages/Layout'
 
 // 配置路由规则
 function App() {

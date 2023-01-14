@@ -2,8 +2,18 @@ import { Button, Checkbox, Form, Input } from 'antd';
 import './index.scss'
 
 const Login = () => {
+    const onFinish = values => {
+        console.log(values);
+    }
     return (
-        <Form validateTrigger={['onBlur', 'onChange']}>
+        <Form 
+            onFinish={ onFinish } 
+            initialValues={{
+                mobile: '13900000000',
+                code: '246810',
+                remember:  true
+            }}
+            validateTrigger={['onBlur', 'onChange']}>
             <Form.Item 
                 name="mobile" 
                 rules={[

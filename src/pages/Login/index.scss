@@ -5,25 +5,25 @@
     left: 0;
     top: 0;
     background: center/cover url('~@/assets/login.png');
-
+  
     .login-logo {
-        width: 200px;
-        height: 60px;
-        display: block;
-        margin: 0 auto 20px;
+      width: 200px;
+      height: 60px;
+      display: block;
+      margin: 0 auto 20px;
     }
-
-    .logo-container {
-        width: 440px;
-        height: 360px;
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
-        box-shadow: 0 0 50px rgb(0 0 0 / 10%);
+  
+    .login-container {
+      width: 440px;
+      height: 360px;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 0 50px rgba(0, 0, 0, 0.1);
     }
-
-    .login-check-label {
-        color: #1890ff;
+  
+    .login-checkbox-label {
+      color: #1890ff;
     }
 }

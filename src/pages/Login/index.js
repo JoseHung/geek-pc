@@ -1,10 +1,20 @@
-import { Button, Checkbox, Form, Input, Card, } from 'antd';
+import { Button, Checkbox, Form, Input, Card, message} from 'antd';
 import logo from '@/assets/logo.png';
 import './index.scss'
+import { useStore } from '@/store'
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
-    const onFinish = values => {
-        console.log(values);
+    const navigate = useNavigate();
+    const { loginStore } = useStore();
+    const onFinish = async values => {
+        const { mobile, code } = values;
+        try {
+            await loginStore.login({ mobile, code });
+            navigate('/');
+        } catch(e) {
+            message.error(e.response?.data?.message || '登录失败');
+        }
     }
     return (
         <div className="login">

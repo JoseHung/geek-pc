@@ -1,9 +1,9 @@
 // 登录模块
 import { makeAutoObservable } from 'mobx'
-import { http } from '@/utils'
+import { http, getToken, clearToken, setToken } from '@/utils'
 
 class LoginStore {
-    token = ''
+    token = getToken() || '';
     constructor() {
         makeAutoObservable(this);
     }
@@ -13,7 +13,8 @@ class LoginStore {
             mobile,
             code
         })
-        this.token = res.data.token
+        this.token = res.data.token;
+        setToken(res.data.token);
     }
 }
 export default LoginStore

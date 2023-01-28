@@ -6,19 +6,31 @@ import {
     LogoutOutlined
 } from '@ant-design/icons';
 import './index.scss'
-import { Link, Outlet, useLocation } from 'react-router-dom'
+import { useEffect } from 'react';
+import { Link, Outlet, useLocation } from 'react-router-dom';
+import { observer } from 'mobx-react-lite';
+import { useStore } from '@/store';
+
+
 const { Header, Sider } = Layout;
 
 const GeekLayout = () => {
     // 当前浏览器的路径地址
+    // Menu组件的selectedKeys属性与Menu.Item组件的key属性发生匹配的时候，Item组件即可高亮
     const location = useLocation();
     const selectedKey = location.pathname;
+
+    const { userStore } = useStore();
+    useEffect(() => {
+        userStore.getUserInfo();
+    }, [userStore]);
+
     return (
         <Layout>
             <Header className='header'>
                 <div className='logo' />
                 <div className='user-info'>
-                    <span className='user-name'>user.name</span>
+                    <span className='user-name'>{userStore.userInfo.name}</span>
                     <span className='user-logout'>
                         <Popconfirm title='是否确认退出' okText='退出' cancelText='取消'>
                             <LogoutOutlined /> 退出
@@ -54,4 +66,4 @@ const GeekLayout = () => {
     )
 };
 
-export default GeekLayout;
+export default observer(GeekLayout);

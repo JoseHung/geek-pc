@@ -1,4 +1,4 @@
-import { Layout, Menu, Popconfirm, } from 'antd';
+import { Layout, Menu, Popconfirm } from 'antd';
 import { 
     HomeOutlined,
     DiffOutlined,
@@ -6,6 +6,7 @@ import {
     LogoutOutlined
 } from '@ant-design/icons';
 import './index.scss'
+import { Link, Outlet } from 'react-router-dom'
 const { Header, Sider } = Layout;
 
 const GeekLayout = () => {
@@ -30,18 +31,21 @@ const GeekLayout = () => {
                     defaultSelectedKeys={['1']}
                     style={{ height: '100%', borderRight: 0}}
                 >
-                    <Menu.Item icon={<HomeOutlined />} key='1'>
-                        数据概览
+                    <Menu.Item icon={<HomeOutlined />} key='/'>
+                        <Link to='/'>数据概览</Link>
                     </Menu.Item>
                     <Menu.Item icon={<DiffOutlined />} key='2'>
-                        数据概览
+                        <Link to='/article'>内容管理</Link>
                     </Menu.Item>
                     <Menu.Item icon={<EditOutlined />} key='3'>
-                        数据概览
+                        <Link to='/publish'>发布文章</Link>
                     </Menu.Item>
                 </Menu>
             </Sider>
-            <Layout className='layout-content' style={{ padding: 20}}>内容</Layout>
+            <Layout className='layout-content' style={{ padding: 20}}>
+                {/* 二级路由默认页面 */}
+                <Outlet />
+            </Layout>
         </Layout>
     </Layout>
   )

@@ -6,38 +6,41 @@ import {
     LogoutOutlined
 } from '@ant-design/icons';
 import './index.scss'
-import { Link, Outlet } from 'react-router-dom'
+import { Link, Outlet, useLocation } from 'react-router-dom'
 const { Header, Sider } = Layout;
 
 const GeekLayout = () => {
-  return (
-    <Layout>
-        <Header className='header'>
-            <div className='logo' />
-            <div className='user-info'>
-                <span className='user-name'>user.name</span>
-                <span className='user-logout'>
-                    <Popconfirm title='是否确认退出' okText='退出' cancelText='取消'>
-                        <LogoutOutlined /> 退出
-                    </Popconfirm>
-                </span>
-            </div>
-        </Header>
+    // 当前浏览器的路径地址
+    const location = useLocation();
+    const selectedKey = location.pathname;
+    return (
+        <Layout>
+            <Header className='header'>
+                <div className='logo' />
+                <div className='user-info'>
+                    <span className='user-name'>user.name</span>
+                    <span className='user-logout'>
+                        <Popconfirm title='是否确认退出' okText='退出' cancelText='取消'>
+                            <LogoutOutlined /> 退出
+                        </Popconfirm>
+                    </span>
+                </div>
+            </Header>
         <Layout>
             <Sider width={200} className='site-layout-background'>
                 <Menu 
                     mode='inline'
                     theme='dark'
-                    defaultSelectedKeys={['1']}
+                    selectedKeys={[selectedKey]}
                     style={{ height: '100%', borderRight: 0}}
                 >
                     <Menu.Item icon={<HomeOutlined />} key='/'>
                         <Link to='/'>数据概览</Link>
                     </Menu.Item>
-                    <Menu.Item icon={<DiffOutlined />} key='2'>
+                    <Menu.Item icon={<DiffOutlined />} key='/article'>
                         <Link to='/article'>内容管理</Link>
                     </Menu.Item>
-                    <Menu.Item icon={<EditOutlined />} key='3'>
+                    <Menu.Item icon={<EditOutlined />} key='/publish'>
                         <Link to='/publish'>发布文章</Link>
                     </Menu.Item>
                 </Menu>
@@ -48,7 +51,7 @@ const GeekLayout = () => {
             </Layout>
         </Layout>
     </Layout>
-  )
+    )
 };
 
 export default GeekLayout;

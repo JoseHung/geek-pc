@@ -16,5 +16,10 @@ class LoginStore {
         this.token = res.data.token;
         setToken(res.data.token);
     }
+    // 退出登录
+    loginOut = () => {
+        this.token = '';
+        clearToken();
+    }
 }
 export default LoginStore

@@ -7,7 +7,7 @@ import {
 } from '@ant-design/icons';
 import './index.scss'
 import { useEffect } from 'react';
-import { Link, Outlet, useLocation } from 'react-router-dom';
+import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
 import { useStore } from '@/store';
 
@@ -19,11 +19,19 @@ const GeekLayout = () => {
     // Menu组件的selectedKeys属性与Menu.Item组件的key属性发生匹配的时候，Item组件即可高亮
     const location = useLocation();
     const selectedKey = location.pathname;
-
-    const { userStore } = useStore();
+    
+    // 获取用户信息
+    const { userStore, loginStore } = useStore();
     useEffect(() => {
         userStore.getUserInfo();
     }, [userStore]);
+
+    // logout
+    const navigate = useNavigate();
+    const onLogout = () => {
+        loginStore.loginOut();
+        navigate('/login');
+    }
 
     return (
         <Layout>
@@ -32,7 +40,7 @@ const GeekLayout = () => {
                 <div className='user-info'>
                     <span className='user-name'>{userStore.userInfo.name}</span>
                     <span className='user-logout'>
-                        <Popconfirm title='是否确认退出' okText='退出' cancelText='取消'>
+                        <Popconfirm title='是否确认退出？' okText='退出' cancelText='取消' onConfirm={onLogout}>
                             <LogoutOutlined /> 退出
                         </Popconfirm>
                     </span>

@@ -1,5 +1,5 @@
 // 导入路由
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 import { AuthRoute } from '@/components/AuthRoute'
 import { history, HistoryRouter } from './utils/history'
 

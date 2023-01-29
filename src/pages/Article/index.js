@@ -1,14 +1,27 @@
 import { Link } from 'react-router-dom';
 import { Breadcrumb, Button, Card, Form, Radio, Select, DatePicker, Table, Tag, Space } from 'antd';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
-import img404 from '@/assets/error.png'
-import 'moment/locale/zh-cn'
+import img404 from '@/assets/error.png';
+import 'moment/locale/zh-cn';
 import locale from 'antd/es/date-picker/locale/zh_CN';
+import './index.scss'
+import { useEffect, useState } from 'react';
+import { http } from '@/utils';
 
 const { Option } = Select;
 const { RangePicker } = DatePicker;
 
 const Article = () => {
+    // 获取频道列表
+    const [channels, setChannels] = useState([]);
+    useEffect(() => {
+        async function fetchChannels() {
+            const res = await http.get('./channels');
+            setChannels(res.data.channels);
+        }
+        fetchChannels()
+    }, []);
+
     const columns = [
         {
             title: '封面',
@@ -99,11 +112,13 @@ const Article = () => {
                     <Form.Item label="频道" name="channel_id">
                         <Select 
                             placeholder="请选择文章频道"
-                            defaultValue="lucy"
-                            style={{ width:120 }}
+                            style={{ width:200 }}
                         >
-                            <Option value="jack">Jack</Option>
-                            <Option value="lucy">Lucy</Option>
+                            {channels.map(item => (
+                                <Option key={item.id} value={item.id}>
+                                    {item.name}
+                                </Option>
+                            ))}
                         </Select>
                     </Form.Item>
 

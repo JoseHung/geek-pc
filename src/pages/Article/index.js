@@ -22,6 +22,31 @@ const Article = () => {
         fetchChannels()
     }, []);
 
+    // 文章列表数据管理
+    const [article, setArticleList] = useState({
+        list: [],
+        count: 0
+    })
+
+    // 参数管理
+    const [params, setParams] = useState({
+        page: 1,
+        per_page: 10
+    })
+
+    // 发送接口请求
+    useEffect(() => {
+        async function fetchArticleList() {
+            const res = await http.get('./mp/articles', { params });
+            const { results, total_count } = res.data;
+            setArticleList({
+                list: results,
+                count: total_count
+            })
+        }
+        fetchArticleList();
+    }, [params])
+
     const columns = [
         {
             title: '封面',
@@ -134,8 +159,8 @@ const Article = () => {
                     </Form.Item>
                 </Form>
             </Card>
-            <Card title={`根据筛选条件共查询到 count 条结果：`}>
-                <Table rowKey="id" columns={columns} dataSource={data} />
+            <Card title={`根据筛选条件共查询到 ${article.count} 条结果：`}>
+                <Table rowKey="id" columns={columns} dataSource={article.list} />
             </Card>
         </div>
     )

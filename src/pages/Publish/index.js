@@ -2,6 +2,8 @@ import { PlusOutlined } from "@ant-design/icons";
 import { Breadcrumb, Card, Form, Input, Radio, Select, Upload, Space, Button } from "antd";
 import { Link } from "react-router-dom";
 import './index.scss'
+import ReactQuill from "react-quill";
+import 'react-quill/dist/quill.snow.css'
 
 const { Option } = Select;
 
@@ -21,7 +23,7 @@ const Publish = () => {
                 <Form 
                     labelCol={{ span: 4}}
                     wrapperCol={{ span: 16 }}
-                    initialValues={{ type: 1 }}
+                    initialValues={{ content: '' }}
                 >
                     <Form.Item
                         label="标题"
@@ -66,6 +68,11 @@ const Publish = () => {
                         name="content"
                         rules={[{ required: true, message: '请输入文章内容' }]}
                     >
+                        <ReactQuill
+                            className="publish-quill"
+                            theme="snow"
+                            placeholder="请输入文章内容"
+                        />
                     </Form.Item>
 
                     <Form.Item wrapperCol={{ offset: 4 }}>

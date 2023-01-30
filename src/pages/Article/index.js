@@ -110,6 +110,27 @@ const Article = () => {
         }
     ];
 
+    // 筛选功能
+    const onSearch = values => {
+        const { status, channels_id, date } = values;
+        // 格式化表单数据
+        const _params = {};
+        // 格式化 status
+        _params.status = status;
+        if(channels_id) {
+            _params.channels_id = channels_id;
+        }
+        if(date) {
+            _params.begin_pubdate = date[0].format('YYYY-MM-DD');
+            _params.end_pubdate = date[1].format('YYYY-MM-DD');
+        }
+        // 修改 params 参数，触发接口再次发起
+        setParams({
+            ...params,
+            ..._params
+        });
+    }
+
     return (
         <div>
             <Card 
@@ -123,7 +144,7 @@ const Article = () => {
                 }
                 style={{ marginRight: 20 }}
             >
-                <Form initialValues={{ status: null }}>
+                <Form initialValues={{ status: null }} onFinish={ onSearch }>
                     <Form.Item label="状态" name="status">
                         <Radio.Group>
                             <Radio value={null}>全部</Radio>

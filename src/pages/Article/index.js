@@ -7,6 +7,7 @@ import locale from 'antd/es/date-picker/locale/zh_CN';
 import './index.scss'
 import { useEffect, useState } from 'react';
 import { http } from '@/utils';
+import { history } from '@/utils/history';
 
 const { Option } = Select;
 const { RangePicker } = DatePicker;
@@ -87,7 +88,11 @@ const Article = () => {
             render: data => {
                 return (
                     <Space size="middle">
-                        <Button type="primary" shape="circle" icon={<EditOutlined />} />
+                        <Button 
+                            type="primary" 
+                            shape="circle" 
+                            icon={<EditOutlined />}
+                            onClick={() => history.push(`/home/publish?id=${data.id}`)} />
                         <Popconfirm 
                             title="确认删除这篇文章吗？"
                             onConfirm={() => delArticle(data)}

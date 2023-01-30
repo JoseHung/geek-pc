@@ -107,21 +107,6 @@ const Article = () => {
         }
     ];
 
-    const data = [
-        {
-            id: '8218',
-            comment_count: 0,
-            cover: {
-                images: ['http://geek.itheima.net/resources/images/15.jpg'],
-            },
-            like_count: 0,
-            pubdate: '2023-01-29 12:27:00',
-            read_count: 2,
-            status: 2,
-            title: 'wkwebview离线化加载h5资源解决方案'
-        }
-    ];
-
     // 筛选功能
     const onSearch = values => {
         const { status, channels_id, date } = values;
@@ -168,7 +153,7 @@ const Article = () => {
                 title={
                     <Breadcrumb separator=">">
                         <Breadcrumb.Item>
-                            <Link to="/home">首页</Link>
+                            <Link to="/">首页</Link>
                         </Breadcrumb.Item>
                         <Breadcrumb.Item>内容管理</Breadcrumb.Item>
                     </Breadcrumb>

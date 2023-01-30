@@ -1,6 +1,7 @@
 import { PlusOutlined } from "@ant-design/icons";
 import { Breadcrumb, Card, Form, Input, Radio, Select, Upload, Space, Button } from "antd";
 import { Link } from "react-router-dom";
+import './index.scss'
 
 const { Option } = Select;
 
@@ -11,7 +12,7 @@ const Publish = () => {
                 title={
                     <Breadcrumb separator=">">
                         <Breadcrumb.Item>
-                            <Link to="/home">首页</Link>
+                            <Link to="/">首页</Link>
                         </Breadcrumb.Item>
                         <Breadcrumb.Item>发布文章</Breadcrumb.Item>
                     </Breadcrumb>

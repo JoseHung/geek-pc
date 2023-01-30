@@ -23,7 +23,7 @@ function App() {
             </AuthRoute>
           }>
             {/* 二级路由默认页面 */}
-            <Route path='home' element={<Home />} />
+            <Route index element={<Home />} />
             <Route path='article' element={<Article />} />
             <Route path='publish' element={<Publish />} />
           </Route>

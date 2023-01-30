@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Breadcrumb, Button, Card, Form, Radio, Select, DatePicker, Table, Tag, Space } from 'antd';
+import { Breadcrumb, Button, Card, Form, Radio, Select, DatePicker, Table, Tag, Space, Popconfirm } from 'antd';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import img404 from '@/assets/error.png';
 import 'moment/locale/zh-cn';
@@ -88,7 +88,14 @@ const Article = () => {
                 return (
                     <Space size="middle">
                         <Button type="primary" shape="circle" icon={<EditOutlined />} />
-                        <Button type="primary" danger shape="circle" icon={<DeleteOutlined />} />
+                        <Popconfirm 
+                            title="确认删除这篇文章吗？"
+                            onConfirm={() => delArticle(data)}
+                            okText="确认"
+                            cancelText="取消"
+                        >
+                            <Button type="primary" danger shape="circle" icon={<DeleteOutlined />} />
+                        </Popconfirm>                       
                     </Space>
                 )
             }
@@ -137,6 +144,16 @@ const Article = () => {
         setParams({
             ...params,
             page
+        })
+    }
+
+    // 删除回调
+    const delArticle = async (data) => {
+        await http.delete(`/mp/article/${data.id}`)
+        // 更新列表
+        setParams({
+            page: 1,
+            per_page: 10
         })
     }
 

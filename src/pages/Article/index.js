@@ -131,6 +131,15 @@ const Article = () => {
         });
     }
 
+    // 分页
+    const pageChange = (page) => {
+        // 拿到当前页参数，修改 params，引起接口更新
+        setParams({
+            ...params,
+            page
+        })
+    }
+
     return (
         <div>
             <Card 
@@ -181,7 +190,16 @@ const Article = () => {
                 </Form>
             </Card>
             <Card title={`根据筛选条件共查询到 ${article.count} 条结果：`}>
-                <Table rowKey="id" columns={columns} dataSource={article.list} />
+                <Table 
+                    columns={columns} 
+                    dataSource={article.list}
+                    pagination={{
+                        position: ['bottomCenter'],
+                        current: params.page,
+                        pageSize: params.per_page,
+                        onChange: pageChange
+                    }}
+                />
             </Card>
         </div>
     )

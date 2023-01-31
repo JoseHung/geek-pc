@@ -4,12 +4,16 @@ import { Link } from "react-router-dom";
 import './index.scss'
 import ReactQuill from "react-quill";
 import 'react-quill/dist/quill.snow.css'
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { http } from "@/utils";
 
 const { Option } = Select;
 
 const Publish = () => {
+    // 暂存图片
+    // 通过 useRef 声明一个暂存仓库
+    const fileListRef = useRef([]);
+
     // 频道列表
     const [channels, setChannels] = useState([]);
     useEffect(() => {
@@ -33,12 +37,39 @@ const Publish = () => {
             return file;
         })
         setFileList(fileList);
+        // 上传图片时，将所有图片存储到 ref 中
+        fileListRef.current = fileList;
     }
 
+    // 封面数量
     const [imgCount, setImgCount] = useState(1);
     const changeType = e => {
         const count = e.target.value;
         setImgCount(count);
+        if(count === 1) {
+            // 单图，只展示第一张
+            const firstImg = fileListRef.current[0];
+            setFileList(!firstImg ? [] : firstImg);
+        } else if(count === 3) {
+            setFileList(fileListRef.current);
+        }
+    }
+
+    // 发布文章
+    const onFinish = async (values) => {
+        // 数据二次处理
+        const { channel_id, content, title, type } = values;
+        const params = {
+            channel_id,
+            content,
+            title,
+            type,
+            cover: {
+                type: type,
+                images: fileList.map(item => item.url)
+            }
+        }
+        await http.post('/mp/articles?draft=false', params)
     }
 
     return (
@@ -57,6 +88,7 @@ const Publish = () => {
                     labelCol={{ span: 4}}
                     wrapperCol={{ span: 16 }}
                     initialValues={{ content: '' }}
+                    onFinish={ onFinish }
                 >
                     <Form.Item
                         label="标题"

@@ -139,7 +139,7 @@ const Article = () => {
 
     // 删除回调
     const delArticle = async (data) => {
-        await http.delete(`/mp/article/${data.id}`)
+        await http.delete(`/mp/articles/${data.id}`)
         // 更新列表
         setParams({
             page: 1,

@@ -35,6 +35,12 @@ const Publish = () => {
         setFileList(fileList);
     }
 
+    const [imgCount, setImgCount] = useState(1);
+    const changeType = e => {
+        const count = e.target.value;
+        setImgCount(count);
+    }
+
     return (
         <div className="publish">
             <Card
@@ -76,25 +82,27 @@ const Publish = () => {
 
                     <Form.Item label="封面">
                         <Form.Item name="type">
-                            <Radio.Group>
+                            <Radio.Group onChange={changeType}>
                                 <Radio value={1}>单图</Radio>
                                 <Radio value={3}>三图</Radio>
                                 <Radio value={0}>无图</Radio>
                             </Radio.Group>
                         </Form.Item>
-                        <Upload
-                            name="image"
-                            listType="picture-card"
-                            className="avatar-uploader"
-                            showUploadList
-                            action="http://geek.itheima.net/v1_0/upload"
-                            fileList={fileList}
-                            onChange={onUploadChange}
-                        >
-                            <div style={{ marginTop: 8 }}>
-                                <PlusOutlined />
-                            </div>
-                        </Upload>
+                            {imgCount > 0 && (
+                                <Upload
+                                    name="image"
+                                    listType="picture-card"
+                                    className="avatar-uploader"
+                                    showUploadList
+                                    action="http://geek.itheima.net/v1_0/upload"
+                                    fileList={fileList}
+                                    onChange={onUploadChange}
+                                >
+                                    <div style={{ marginTop: 8 }}>
+                                        <PlusOutlined />
+                                    </div>
+                                </Upload>
+                            )}
                     </Form.Item>
 
                     <Form.Item
